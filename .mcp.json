@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "mamba-company-discovery-list-builder": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@mambalabsdev/mcp-company-discovery-list-builder"
+      ],
+      "env": {
+        "APIFY_TOKEN": "your-apify-token"
+      }
+    }
+  }
+}
