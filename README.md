@@ -36,15 +36,15 @@ Market in, companies out. Give it role keywords and a location and it returns th
 
 | Input | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `mode` | enum | yes | hiring returns companies currently hiring for your role keywords, built from a live index of public Greenhouse and Ashby job boards. filings returns US SEC filers whose filings contain your phrase. |
+| `mode` | enum | yes | hiring returns companies currently hiring for your role keywords, built from a live index of public Greenhouse and Ashby job boards. filings returns US SEC filers whose filings contain your phrase. One of: `hiring`, `filings`. |
 | `role_keywords` | string | no | Comma separated. Matched as whole words against live job titles, so account executive matches Enterprise Account Executive and does not match Executive Assistant. Leave empty to match any role. Used in hiring mode. |
 | `filing_phrase` | string | no | Exact phrase searched in SEC filings, for example agentic AI. Used in filings mode. |
-| `filing_forms` | string | no | Comma separated SEC form types, for example 10-K,10-Q. Used in filings mode. |
+| `filing_forms` | string | no | Comma separated SEC form types, for example 10-K,10-Q. Used in filings mode. Default: "10-K". |
 | `location_contains` | string | no | Substring match against the job location string, for example London, Remote, New York. Locations are free text on every job board, so this is a plain substring test: Remote does not match US Remote. |
-| `min_open_jobs` | string | no | Skip companies with fewer open roles than this. A rough size proxy. Sent as a string so it works from Clay. |
-| `max_companies` | string | no | How many companies to return, 1 to 2000. Sent as a string so it works from Clay. You are billed per company returned, not per company examined. |
-| `resolve_domains` | boolean | no | Look up each company's website. Off by default: it adds roughly a second per company and about two thirds of companies resolve. Check domain_status and domain_confidence before trusting a result. |
-| `refresh_universe` | boolean | no | Force a fresh Common Crawl enumeration instead of the cached one. The cached universe is rebuilt about monthly on its own, so leave this off unless you need the newest crawl. |
+| `min_open_jobs` | string | no | Skip companies with fewer open roles than this. A rough size proxy. Sent as a string so it works from Clay. Default: "1". |
+| `max_companies` | string | no | How many companies to return, 1 to 2000. Sent as a string so it works from Clay. You are billed per company returned, not per company examined. Default: "100". |
+| `resolve_domains` | boolean | no | Look up each company's website. On by default: it adds roughly a second per company and about two thirds of companies resolve. Set false for a faster list without domains. Check domain_status and domain_confidence before trusting a result. Default: true. |
+| `refresh_universe` | boolean | no | Force a fresh Common Crawl enumeration instead of the cached one. The cached universe is rebuilt about monthly on its own, so leave this off unless you need the newest crawl. Default: false. |
 
 ## Billing
 
@@ -58,8 +58,10 @@ It is a thin client for the Apify actor. It passes your input through and return
 
 Errors are surfaced, never swallowed. An invalid input, an invalid token, an exhausted balance, a timeout, or a run that returns anything other than a dataset all come back as an explicit tool error rather than as an empty result.
 
+The tool starts the actor run and polls it to a finished status, so a long run is not cut off at 300 seconds. If the run is still going after 30 minutes, the call stops waiting and returns the run ID with a link to it in the Apify Console, where the results land when it finishes. A run that does not succeed comes back as an error with its run ID and status.
+
 ## Source
 
-The actor is on the [Apify Store]( https://apify.com/mambalabs/company-discovery-list-builder). This wrapper is [MIT licensed](LICENSE).
+The actor is on the [Apify Store](https://apify.com/mambalabs/company-discovery-list-builder). This wrapper is [MIT licensed](LICENSE).
 
 Built by [Mamba Labs](https://apify.com/mambalabs)
