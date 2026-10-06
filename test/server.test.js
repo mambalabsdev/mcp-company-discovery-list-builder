@@ -19,7 +19,7 @@ const ACTOR_INPUTS = ["filing_forms","filing_phrase","location_contains","max_co
 const TOOL_INPUTS = ["filing_forms","filing_phrase","location_contains","max_companies","min_open_jobs","mode","refresh_universe","resolve_domains","role_keywords"];
 const TOOL_REQUIRED = ["mode"];
 const SAMPLE_ARGS = {"mode":"hiring","role_keywords":"recruiter"};
-const RUN_QUERY = "";
+const RUN_QUERY = "?timeout=1800";
 
 // Speak MCP over stdio to the built server. extraEnv and preload let a test
 // swap in the fake Apify API from helpers/mock-fetch.mjs.
