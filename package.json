@@ -1,7 +1,7 @@
 {
   "name": "@mambalabsdev/mcp-company-discovery-list-builder",
   "displayName": "Company Discovery List Builder",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "MCP server for the Mamba Labs Company Discovery List Builder actor on Apify. Market definition in, companies out: companies hiring for a role, or US SEC filers whose filings mention a phrase.",
   "type": "module",
   "bin": {
