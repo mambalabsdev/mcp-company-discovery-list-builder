@@ -45,10 +45,18 @@ Market in, companies out. Give it role keywords and a location and it returns th
 | `max_companies` | string | no | How many companies to return, 1 to 2000. Sent as a string so it works from Clay. You are billed per company returned, not per company examined. Default: "100". |
 | `resolve_domains` | boolean | no | Look up each company's website. On by default: it adds roughly a second per company and about two thirds of companies resolve. Set false for a faster list without domains. Check domain_status and domain_confidence before trusting a result. Default: true. |
 | `refresh_universe` | boolean | no | Force a fresh Common Crawl enumeration instead of the cached one. The cached universe is rebuilt about monthly on its own, so leave this off unless you need the newest crawl. Default: false. |
+| `max_charge_usd` | number | no | Optional cost cap in USD for this run. The actor stops before an item that could take its charges past this amount. Omit to rely on the maximum cost per run set in Apify. |
 
 ## Billing
 
 You are charged per company returned, not per company examined, plus a small actor start fee. max_companies is therefore a hard cost cap.
+
+Price per event on the Apify FREE plan, from the live pricing record; paid Apify plans pay less per event.
+
+| Event | Price (USD) |
+| --- | --- |
+| Actor Start (`apify-actor-start`) | 0.00005 |
+| Company found (`company-found`) | 0.004 |
 
 Pricing is on the [actor's Apify page](https://apify.com/mambalabs/company-discovery-list-builder). Running this server consumes Apify credits.
 

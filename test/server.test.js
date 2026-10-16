@@ -14,9 +14,9 @@ const TOOL_NAME = "build_company_list";
 const ACTOR_ID = "jch0HdaZnpbMqlcGS";
 // Every input the live actor exposes to a buyer must be exposed by the tool.
 // Excluded by rule: source_tag (internal or test only fields).
-const ACTOR_INPUTS = ["filing_forms","filing_phrase","location_contains","max_companies","min_open_jobs","mode","refresh_universe","resolve_domains","role_keywords"];
+const ACTOR_INPUTS = ["max_charge_usd","filing_forms","filing_phrase","location_contains","max_companies","min_open_jobs","mode","refresh_universe","resolve_domains","role_keywords"];
 // The tool's full input list, so a dropped or renamed parameter fails here.
-const TOOL_INPUTS = ["filing_forms","filing_phrase","location_contains","max_companies","min_open_jobs","mode","refresh_universe","resolve_domains","role_keywords"];
+const TOOL_INPUTS = ["max_charge_usd","filing_forms","filing_phrase","location_contains","max_companies","min_open_jobs","mode","refresh_universe","resolve_domains","role_keywords"];
 const TOOL_REQUIRED = ["mode"];
 const SAMPLE_ARGS = {"mode":"hiring","role_keywords":"recruiter"};
 const RUN_QUERY = "?timeout=1800";

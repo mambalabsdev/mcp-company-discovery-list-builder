@@ -200,15 +200,16 @@ server.registerTool(
   {
     title: "Build Company List",
     description:
-      "Build a list of companies from a market definition, in two modes. hiring returns companies currently advertising for your role keywords, built from a live index of public Greenhouse and Ashby job boards; role_keywords are matched as whole words against live job titles, so account executive matches Enterprise Account Executive and does not match Executive Assistant. filings returns US public companies whose SEC filings of the form types you name contain your exact phrase. location_contains is a plain substring test against the job board's own free text location string, so Remote does not match US Remote. min_open_jobs is a rough size proxy. resolve_domains looks up each company's website, which adds roughly a second per company and resolves about two thirds of the time, so check domain_status and domain_confidence before trusting a domain. The underlying company universe is rebuilt about monthly on its own; refresh_universe forces a fresh enumeration and is rarely what you want. You are billed per company returned, not per company examined, so max_companies is the cost dial. Requires an APIFY_TOKEN and consumes Apify credits. Read only.",
+      "Build a list of companies from a market definition, in two modes. hiring returns companies currently advertising for your role keywords, built from a live index of public Greenhouse and Ashby job boards; role_keywords are matched as whole words against live job titles, so account executive matches Enterprise Account Executive and does not match Executive Assistant. filings returns US public companies whose SEC filings of the form types you name contain your exact phrase. location_contains is a plain substring test against the job board's own free text location string, so Remote does not match US Remote. min_open_jobs is a rough size proxy. resolve_domains looks up each company's website, which adds roughly a second per company and resolves about two thirds of the time, so check domain_status and domain_confidence before trusting a domain. The underlying company universe is rebuilt about monthly on its own; refresh_universe forces a fresh enumeration and is rarely what you want. You are billed per company returned, not per company examined, so max_companies is the cost dial. Requires an APIFY_TOKEN and consumes Apify credits. Reads public data only and writes nothing.",
     annotations: {
       title: "Build Company List",
-      readOnlyHint: true,
+      readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: true,
     },
     inputSchema: {
+    max_charge_usd: z.number().min(0).optional().describe("Optional. The run stops before any charge that would take this run past this amount, and saves every row already paid for. Leave empty to rely only on the maximum cost per run set in Apify, which the run also honors."),
     mode: z.enum(["hiring", "filings"]).describe("hiring returns companies currently hiring for your role keywords, built from a live index of public Greenhouse and Ashby job boards. filings returns US SEC filers whose filings contain your phrase."),
     role_keywords: z.string().optional().describe("Comma separated. Matched as whole words against live job titles, so account executive matches Enterprise Account Executive and does not match Executive Assistant. Leave empty to match any role. Used in hiring mode."),
     filing_phrase: z.string().optional().describe("Exact phrase searched in SEC filings, for example agentic AI. Used in filings mode."),
